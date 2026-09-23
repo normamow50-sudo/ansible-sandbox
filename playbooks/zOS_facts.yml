@@ -1,0 +1,10 @@
+---
+- name: Return zOS facts
+  hosts: zos
+  gather_facts: false
+  environment: "{{ environment_vars }}"
+
+  tasks:
+
+  - name: Return all available z/OS facts.
+    ibm.ibm_zos_core.zos_gather_facts:     
