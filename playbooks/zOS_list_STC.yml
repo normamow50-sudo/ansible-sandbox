@@ -6,6 +6,6 @@
 
   tasks:
 
-- name: List zOS STCs
-  ibm.ibm_zos_core.zos_job_query:
-    job_class: STC
+  - name: List zOS STCs
+    ibm.ibm_zos_core.zos_job_query:
+      job_class: STC
