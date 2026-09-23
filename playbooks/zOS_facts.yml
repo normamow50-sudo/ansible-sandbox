@@ -9,7 +9,7 @@
   - name: Return subset available z/OS facts.
     ibm.ibm_zos_core.zos_gather_facts:    
       gather_subset: sys
-      register: zos_facts 
+    register: zos_facts 
 
   - name: Print info from previous task
     ansible.builtin.debug:
