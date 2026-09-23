@@ -18,7 +18,7 @@
         | list }}
   - name: Display Results
     ansible.builtin.debug:
-      msg:"{{started_tasks | map(attribute='job_name') | list }}"
+      msg: "{{ started_tasks | map(attribute='job_name') | list }}"
                 
 
   
