@@ -12,7 +12,7 @@
   - name: Keep only Started Tasks
     set_fact: 
       started_tasks: >-
-        {{ active_jobs,jobs
+        {{ active_jobs.jobs
         |selectattr('job_class','defined')
         |selectattr('job_class','equalto','STC') 
         | list }}
