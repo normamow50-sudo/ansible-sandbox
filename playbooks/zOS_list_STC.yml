@@ -8,4 +8,17 @@
 
   - name: List zOS STCs 
     ibm.ibm_zos_core.zos_job_query:
-      job_class: STC
+    register: active_jobs
+  - name: Keep only Started Tasks
+    set_fact: 
+      started_tasks: >-
+        {{ active_jobs,jobs
+        |selectattr('job_class','defined')
+        |selectattr('job_class','equalto','STC') 
+        | list }}
+  - name: Display Results
+    ansible.builtin.debug:
+      msg:"{{started_tasks | map(attribue='job_name') | list }}"
+                
+
+  
