@@ -1,0 +1,11 @@
+---
+- name: zOS list STCs
+  hosts: zos
+  gather_facts: false
+  environment: "{{ environment_vars }}"
+
+  tasks:
+
+- name: List zOS STCs
+  ibm.ibm_zos_core.zos_job_query:
+    job_class: STC
