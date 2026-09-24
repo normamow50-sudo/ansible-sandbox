@@ -7,7 +7,7 @@
   environment: "{{ environment_vars }}"
 
   tasks:
-    - name: Write Hello World JCL to USS
+    - name: Write Hello PA JCL to USS
       zos_copy:
         content: |
           //NMHELLOW JOB CLASS=A,MSGCLASS=X,MSGLEVEL=(1,1)
@@ -15,7 +15,7 @@
           //STDOUT   DD SYSOUT=*
           //STDERR   DD SYSOUT=*
           //STDPARM  DD *
-          SH echo "Hello, World from z/OS!"
+          SH echo "Hello, PA from z/OS!"
           /*
         dest: /u/ibmuser/nm_hello_world.jcl
         force: true
