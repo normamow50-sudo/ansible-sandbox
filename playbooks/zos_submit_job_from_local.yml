@@ -11,14 +11,6 @@
       zos_job_submit:
         src: "{{ playbook_dir }}/JCL/hello_world.jcl"
         location: local
-        wait_time_s: 60
-        return_output: true
-      register: job_output
-
-    - name: Show job ID and return code
-      debug:
-        msg: "Job {{ job_output.jobs[0].job_id }} completed RC={{ job_output.jobs[0].ret_code.msg }}"
-
-    - name: Show spool output
-      debug:
-        msg: "{{ job_output.jobs[0].ddnames | map(attribute='content') | list }}" 
+      encoding:
+        from: ISO8859-1
+        to: IBM-037
