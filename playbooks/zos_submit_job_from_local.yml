@@ -1,63 +1,24 @@
-# Run JCL from local 
-- name: Submit resolved JCL to z/OS
+# Run job from local 
+- name: Hello World JCL job
   hosts: zoslab
   gather_facts: false
   collections:
     - ibm.ibm_zos_core
   environment: "{{ environment_vars }}"
-  vars:
-    job_owner: IBMUSER
-    hlq: PLAT01
-    mlq: DEV
-    libname: JCL 
-    primary_allocation: 2
-    secondary_allocation: 4 
-    jcl_path: "{{ playbook_dir }}/tmp_jcl/rendered.jcl"
-    jcl_dataset_name: "{{ job_owner }}.TEMP.JCL"
 
   tasks:
-    - name: Render JCL locally on control node
-      ansible.builtin.template:
-        src: templates/provdev.jcl.j2
-        dest: "{{ jcl_path }}"
-      delegate_to: localhost
+    - name: Submit Hello World job
+      zos_job_submit:
+        src: "{{ playbook_dir }}/JCL/hello_world.jcl"
+        location: local
+        wait_time_s: 60
+        return_output: true
+      register: job_output
 
-    - name: Show rendered JCL
-      ansible.builtin.command:
-        cmd: cat "{{ jcl_path }}"
-      delegate_to: localhost
-      changed_when: false
+    - name: Show job ID and return code
+      debug:
+        msg: "Job {{ job_output.jobs[0].job_id }} completed RC={{ job_output.jobs[0].ret_code.msg }}"
 
-    - name: Delete temporary JCL dataset if it exists      
-      ibm.ibm_zos_core.zos_data_set:
-        name: "{{ jcl_dataset_name }}"
-        state: absent
-
-    - name: Allocate temporary JCL dataset
-      ibm.ibm_zos_core.zos_data_set:
-        name: "{{ jcl_dataset_name }}"
-        state: present
-        type: seq
-        record_format: fb
-        record_length: 80
-        block_size: 3120
-        space_primary: 5
-        space_secondary: 1
-        space_type: trk
-
-    - name: Copy JCL into dataset (no USS)
-      ibm.ibm_zos_core.zos_copy:
-        src: "{{ jcl_path }}"
-        dest: "{{ jcl_dataset_name }}"
-        remote_src: false
-
-    - name: Submit JCL from dataset
-      ibm.ibm_zos_core.zos_job_submit:
-        src: "{{ jcl_dataset_name }}"
-      register: job_result
-
-
-    - name: Show job id
-      ansible.builtin.debug:
-        msg: "{{ job_result.jobs[0].job_id }}"
-    
+    - name: Show spool output
+      debug:
+        msg: "{{ job_output.jobs[0].ddnames | map(attribute='content') | list }}" 
