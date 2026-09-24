@@ -12,7 +12,7 @@
       src: GAMA09.JCLLIB(HELLOWRD)
       location: PDS
       wait_time: 60
-    Register: job_result
+    register: job_result
             
   - name: Show job ID and return code
     ansible.builtin.debug:
