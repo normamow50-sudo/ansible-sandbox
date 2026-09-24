@@ -11,6 +11,6 @@
       zos_job_submit:
         src: "{{ playbook_dir }}/JCL/hello_world.jcl"
         location: local
-      encoding:
-        from: ISO8859-1
-        to: IBM-037
+        encoding:
+          from: ISO8859-1
+          to: IBM-037
