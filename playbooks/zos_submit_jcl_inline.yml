@@ -1,6 +1,6 @@
 # Writes the JCL inline, submits it, and prints the spool output.
 - name: Hello World JCL job
-  hosts: zos
+  hosts: zoslab
   gather_facts: false
   collections:
     - ibm.ibm_zos_core
@@ -15,14 +15,14 @@
           //STDOUT   DD SYSOUT=*
           //STDERR   DD SYSOUT=*
           //STDPARM  DD *
-          SH echo "Hello, PA from z/OS!"
+          SH echo "Hello, world from z/OS!"
           /*
-        dest: /u/ibmuser/nm_hello_world.jcl
+        dest: /u/ibmuser/hello_world.jcl
         force: true
 
     - name: Submit Hello World job
       zos_job_submit:
-        src: /u/ibmuser/nm_hello_world.jcl
+        src: /u/ibmuser/hello_world.jcl
         location: USS
         wait_time_s: 60
         return_output: true
