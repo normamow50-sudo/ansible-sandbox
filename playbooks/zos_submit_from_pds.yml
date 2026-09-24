@@ -1,0 +1,19 @@
+# Run job from PDS 
+- name: Hello World JCL job
+  hosts: zoslab
+  gather_facts: false
+  collections:
+    - ibm.ibm_zos_core
+  environment: "{{ environment_vars }}"
+
+  tasks:
+  - name: Submit Hello World job
+    zos_job_submit:
+      src: GAMA09.JCLLIB(HELLOWRD)
+      location: PDS
+      wait_time: 60
+    Register: job_result
+            
+  - name: Show job ID and return code
+    ansible.builtin.debug:
+      msg: "{{job_result.jobs[0].job_id }}"
