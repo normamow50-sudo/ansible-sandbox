@@ -14,8 +14,7 @@
         encoding:
           from: ISO8859-1
           to: IBM-037
-        return_output: true
-      register: job_result
+        register: job_result
         
   tasks:
   - name: Show job ID and return code
