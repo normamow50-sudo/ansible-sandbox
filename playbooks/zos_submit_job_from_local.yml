@@ -15,9 +15,9 @@
           from: ISO8859-1
           to: IBM-037
         return_output: true
-      register: job_output
+      register: job_result
         
   tasks:
   - name: Show job ID and return code
-    debug:
-      msg: "Job {{ job_output.jobs[0].job_id }} completed RC={{ job_output.jobs[0].ret_code.msg }}"
+    ansible.builtin.debug:
+      msg: "{{job_result.jobs[0].job_id }}"
