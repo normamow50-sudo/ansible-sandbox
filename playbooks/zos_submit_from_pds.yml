@@ -10,7 +10,7 @@
   - name: Submit Hello World job
     zos_job_submit:
       src: GAMA09.JCLLIB(HELLOWRD)
-      location: PDS
+      location: DATA_SET
       wait_time: 60
     register: job_result
             
