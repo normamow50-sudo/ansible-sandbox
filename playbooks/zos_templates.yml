@@ -7,17 +7,14 @@
   environment: "{{ environment_vars }}"
   vars:
     job_owner: IBMUSER
-    hlq: GAMA09
-    recfm: FB
-    blksize: 3120
-    lrecl: 80
+    msg_clsss: X
     jcl_path: "{{ playbook_dir }}/tmp_jcl/rendered.jcl"
     jcl_dataset_name: "{{ job_owner }}.TEMP.JCL"
 
   tasks:
     - name: Render JCL locally on control node
       ansible.builtin.template:
-        src: templates/alloc_file.jcl
+        src: templates/hello_world.jcl
         dest: "{{ jcl_path }}"
       delegate_to: localhost
 
