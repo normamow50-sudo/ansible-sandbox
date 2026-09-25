@@ -13,7 +13,7 @@
 
   tasks:
     - name: Render JCL using roles locally on control node
-      include_role:
+      ansible.builtin.role:
         name: render_jcl_role
 
     - name: Delete temporary JCL dataset if it exists      
