@@ -1,4 +1,4 @@
-//{{ job_owner }} JOB CLASS=A,MSGCLASS={{ msg_class }},MSGLEVEL=(1,1)
+//{{ job_owner }} JOB CLASS=A,MSGCLASS={{ m_class }},MSGLEVEL=(1,1)
 //STEP1    EXEC PGM=BPXBATCH
 //STDOUT   DD SYSOUT=*
 //STDERR   DD SYSOUT=*
