@@ -1,0 +1,19 @@
+---
+- name: delete and define VSAM using Ansible funcitons
+  hosts: zoslab
+  gather_facts: false
+  collections:
+    - ibm.ibm_zos_core
+  environment: "{{ environment_vars }}"
+
+  Tasks:
+# step 1 delete VSAM cluster
+  - name: delete vsam cluster using IDCAMS
+    zos_tso_command:
+      commands:
+        - "IDCAMS delete 'my vsam cluster' cluster"
+      register: delete_results
+  -debug:
+    var: delete_results
+    
+
