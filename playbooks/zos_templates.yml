@@ -7,7 +7,7 @@
   environment: "{{ environment_vars }}"
   vars:
     job_owner: IBMUSER
-    msg_clsss: X
+    msg_class: X
     jcl_path: "{{ playbook_dir }}/tmp_jcl/rendered.jcl"
     jcl_dataset_name: "{{ job_owner }}.TEMP.JCL"
 
