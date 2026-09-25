@@ -12,17 +12,9 @@
     jcl_dataset_name: "{{ job_owner }}.TEMP.JCL"
 
   tasks:
-    - name: Render JCL locally on control node
-      ansible.builtin.template:
-        src: templates/hello_world.jcl
-        dest: "{{ jcl_path }}"
-      delegate_to: localhost
-
-    - name: Show rendered JCL
-      ansible.builtin.command:
-        cmd: cat "{{ jcl_path }}"
-      delegate_to: localhost
-      changed_when: false
+    - name: Render JCL using roles locally on control node
+      include_role:
+        name: render_jcl_role
 
     - name: Delete temporary JCL dataset if it exists      
       ibm.ibm_zos_core.zos_data_set:
