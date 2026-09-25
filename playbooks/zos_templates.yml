@@ -5,7 +5,7 @@
   collections:
     - ibm.ibm_zos_core
   environment: "{{ environment_vars }}"
-  var:
+  vars:
     job_owner: IBMUSER
     hlq: GAMA09
     recfm: FB
