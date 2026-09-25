@@ -4,11 +4,10 @@
   gather_facts: false
 
   environment: "{{ environment_vars }}"
-
+  vars: 
+    zos_jcl_source: GAMA09.JCLLIB(DEFVSAM)
   collections:
     - ibm.ibm_zos_core
-  vars:
-    zos_jcl_sourse: "GAMA09.JCLLIB(DEFVSAM)" 
   
   tasks:
 
@@ -19,7 +18,7 @@
         fail_msg: >
           Required variable is missing.
           Specify it with, for example:
-          -e "zos_jcl_source=GAMA09.JCLLIB(MEMBER)"
+          -e "zos_jcl_source=USER.JCLLIB(MEMBER)"
 
     - name: Submit JCL member
       zos_job_submit:
